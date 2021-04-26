@@ -25,10 +25,16 @@ module.exports = {
     },
     proxy: {
       // TODO: 根据实际需要配置代理
-      '/wxapi/*': {
-        target: 'http://weishuo03-wwptd-sl-wanxiang.data.test.sankuai.com/',
+      '/login': {
+        target: 'http://localhost:3000',
         headers: {
-          host: 'weishuo03-wwptd-sl-wanxiang.data.test.sankuai.com'
+          host: 'localhost:3000'
+        }
+      },
+      '/register': {
+        target: 'http://localhost:3000',
+        headers: {
+          host: 'localhost:3000'
         }
       },
     }
