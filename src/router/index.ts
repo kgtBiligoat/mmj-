@@ -6,8 +6,8 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
-    name: 'Home',
+    path: '/dataMigration',
+    name: 'dataMigration',
     component: dataMigration
   },
 ]
