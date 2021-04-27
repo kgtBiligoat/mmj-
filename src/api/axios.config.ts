@@ -37,7 +37,7 @@ export const config: AxiosRequestConfig = {
   headers: {
     ['x-requested-with']: 'XMLHttpRequest',
     ['Cache-Control']: 'no-cache',
-    ['Content-Type']: 'application/x-www-form-urlencoded'
+    ['Content-Type']: 'multipart/form-data;'
   },
   validateStatus() {
     return true
