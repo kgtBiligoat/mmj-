@@ -6,7 +6,7 @@
     :close-on-click-modal="false"
   >
     <el-tabs v-model="activeName">
-      <el-tab-pane label="用户管理" name="login" >
+      <el-tab-pane label="用户管理" name="login">
         <el-form
           :model="logForm"
           :rules="logRules"
@@ -47,7 +47,9 @@
     </el-tabs>
     <span slot="footer" class="dialog-footer">
       <el-button @click="dialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="submitForm">{{ activeName === 'login' ? '登录' : '注册' }}</el-button>
+      <el-button type="primary" @click="submitForm">{{
+        activeName === 'login' ? '登录' : '注册'
+      }}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -62,24 +64,18 @@ import * as api from '@/api'
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
         ],
-        password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-        ],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
       },
       registRules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
         ],
-        password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-        ],
-        phone: [
-          { required: true, message: '请输入电话号', trigger: 'blur' },
-        ],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        phone: [{ required: true, message: '请输入电话号', trigger: 'blur' }],
         address: [
           { required: true, message: '请输入邮箱地址', trigger: 'blur' },
         ],
-      }
+      },
     }
   },
 })
@@ -89,13 +85,13 @@ export default class LoginModal extends Vue {
 
   logForm = {
     username: '',
-    password: ''
+    password: '',
   }
   registForm = {
     username: '',
     password: '',
     phone: '',
-    adress: ''
+    adress: '',
   }
 
   activeName = 'login'
@@ -110,14 +106,32 @@ export default class LoginModal extends Vue {
 
   async login() {
     const res = await api.login({
-      ...this.logForm
+      ...this.logForm,
     })
+    if (res.status === 10000) {
+      this.$store.commit('LOGIN', {
+        username: this.logForm.username,
+      })
+      this.$message({
+        message: '登陆成功',
+        type: 'success',
+      })
+    }
   }
 
   async regist() {
     const res = await api.regist({
-      ...this.registForm
+      ...this.registForm,
     })
+    if (res.status === 10000) {
+      this.$store.commit('LOGIN', {
+        username: this.registForm.username,
+      })
+      this.$message({
+        message: '注册成功',
+        type: 'success',
+      })
+    }
   }
 
   submitForm() {

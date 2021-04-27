@@ -19,7 +19,8 @@ export function regist(parmas: any) {
   .then((res: any) => res.data)
 }
 
-export function get() {
-  const url = '/register'
-  return $http.get(url).then((res: any) => res.data)
+export function logout() {
+  const url = '/user/logout'
+  return $http.post(url)
+  .then((res: any) => res.data)
 }

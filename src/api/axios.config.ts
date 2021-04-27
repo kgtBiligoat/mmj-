@@ -76,7 +76,7 @@ instance.interceptors.response.use((res: AxiosResponse) => {
     throw new Error(res.statusText)
   }
 
-  if (res.data.code !== 0) {
+  if (res.data.status !== 10000) {
     if (!conf.noToast) {
       Message({
         type: 'error',

@@ -10,8 +10,9 @@
         <el-avatar v-else icon="el-icon-user-solid"></el-avatar>
         {{ username }}
       </el-menu-item>
-      <el-menu-item index="2">
-        登出
+
+      <el-menu-item index="2" @click="checkIn">
+        {{ isLogin ? '登出' : '登录' }}
       </el-menu-item>
     </el-menu>
     <!-- 侧栏 -->
@@ -31,7 +32,8 @@
         </el-menu-item>
       </el-menu>
       <div class="container">
-        <router-view></router-view>
+        <el-alert v-if="!isLogin" title="请先登录" type="warning" center show-icon></el-alert>
+        <router-view v-else></router-view>
       </div>
     </div>
     <LoginModal :visible.sync="isOpenLodinModal" />
@@ -40,8 +42,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component } from 'vue-property-decorator'
+import { Component, Watch } from 'vue-property-decorator'
 import LoginModal from './views/components/LoginModal.vue'
+import * as api from '@/api'
 @Component({
   components: {
     LoginModal,
@@ -50,19 +53,38 @@ import LoginModal from './views/components/LoginModal.vue'
 export default class App extends Vue {
   isOpenLodinModal = false
 
+  @Watch('localStorage.username', { immediate: true })
+  test() {
+    console.log(localStorage)
+  }
+
   get isLogin() {
-    return !!localStorage.username
+    return this.$store.state.isLogin
   }
 
   get username() {
-    return localStorage.username
+    return this.$store.state.username
   }
 
-  created() {
+  checkIn() {
     if (!this.isLogin) {
       this.isOpenLodinModal = true
+    } else {
+      this.logout()
     }
   }
+
+  async logout() {
+    const res = await api.logout()
+    if(res.status === 10000) {
+      this.$store.commit('LOGOUT')
+      this.$message({
+        message: '登出成功',
+        type: 'success',
+      })
+    }
+  }
+
 }
 </script>
 
