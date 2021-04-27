@@ -37,6 +37,11 @@ module.exports = {
           host: 'localhost:3000'
         }
       },
+      '/user': {
+        target: 'http://localhost:3000',
+        headers: {
+          host: 'localhost:3000'
+        }
     }
   },
   chainWebpack: config => {
