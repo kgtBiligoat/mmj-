@@ -26,22 +26,18 @@
     <div class="sideBar">
       <el-menu
         class="el-menu-vertical"
-        default-active="dataMigration"
-        router
+        default-active="processManagement"
         background-color="#545c64"
         text-color="#fff"
+        router
       >
-        <el-menu-item index="dataMigration">
+        <el-menu-item index="processManagement">
           <i class="el-icon-menu"></i>
-          <span slot="title">数据迁移</span>
+          <span slot="title">流程管理</span>
         </el-menu-item>
-        <el-menu-item index="approavlProcess">
+        <el-menu-item index="askLeaveManagement">
           <i class="el-icon-document"></i>
-          <span slot="title">审批流程</span>
-        </el-menu-item>
-        <el-menu-item index="userList">
-          <i class="el-icon-setting"></i>
-          <span slot="title">用户列表</span>
+          <span slot="title">请假管理</span>
         </el-menu-item>
       </el-menu>
       <div class="container">
