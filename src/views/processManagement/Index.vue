@@ -12,32 +12,25 @@
           v-model="searchName"
         >
         </el-input>
-        <el-input
-          style="width: 300px;"
-          placeholder="请输入搜索内容"
-          prefix-icon="el-icon-search"
-          v-model="searchName"
-        >
-        </el-input>
       </div>
       <div>
-        <el-button type="success" plain>查询</el-button>
+        <el-button type="primary" @click="search">查询</el-button>
       </div>
     </div>
     <el-table :data="tableData" border>
-      <el-table-column fixed prop="taskName" label="任务名称">
+      <el-table-column fixed prop="taskName" label="任务名称" >
       </el-table-column>
-      <el-table-column prop="taskResource" label="资源类型"> </el-table-column>
-      <el-table-column prop="taskStatus" label="任务状态">
+      <el-table-column prop="taskResource" label="资源类型" > </el-table-column>
+      <el-table-column prop="taskStatus" label="任务状态" >
         <el-tag lot-scope="scope" type="success">运行中</el-tag>
       </el-table-column>
-      <el-table-column prop="createTime" label="创建时间"> </el-table-column>
+      <el-table-column prop="createTime" label="创建时间" > </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small"
+          <el-button @click="lookOver(scope.row)" type="text" size="small"
             >查看</el-button
           >
-          <el-button type="text" size="small">删除</el-button>
+          <el-button type="text" @click="open" size="small">开启</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -61,8 +54,16 @@ export default class DataMigration extends Vue {
 
   searchName = ''
 
-  created() {
-    console.log('杜泽正是傻逼', dayjs())
+  async open() {
+
+  }
+
+  async lookOver() {
+    
+  }
+
+  async search() {
+
   }
 }
 </script>

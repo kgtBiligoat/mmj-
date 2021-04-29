@@ -3,26 +3,18 @@
     <div class="title">
       <h1>请假审批</h1>
       <div>
-        <el-button type="primary">请假</el-button>
+        <el-button type="primary" @click="isOpenAskLeaveModal = true">请假</el-button>
       </div>
     </div>
     <el-table :data="tableData" border>
-      <el-table-column fixed prop="taskName" label="任务名称" >
+      <el-table-column fixed prop="taskName" label="请假人">
       </el-table-column>
-      <el-table-column prop="taskResource" label="资源类型" > </el-table-column>
-      <el-table-column prop="taskStatus" label="任务状态" >
-        <el-tag lot-scope="scope" type="success">运行中</el-tag>
-      </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" > </el-table-column>
-      <el-table-column fixed="right" label="操作">
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small"
-            >查看</el-button
-          >
-          <el-button type="text" size="small">删除</el-button>
-        </template>
-      </el-table-column>
+      <el-table-column prop="taskResource" label="请假原因"> </el-table-column>
+      <el-table-column prop="taskResource" label="开始时间"> </el-table-column>
+      <el-table-column prop="taskResource" label="结束时间"> </el-table-column>
+      <el-table-column prop="taskResource" label="请假时间"> </el-table-column>
     </el-table>
+    <AskLeaveModal :visable.sync="isOpenAskLeaveModal"></AskLeaveModal>
   </div>
 </template>
 
@@ -30,7 +22,12 @@
 import Vue from 'vue'
 import { Component, Prop, Watch } from 'vue-property-decorator'
 import dayjs from 'dayjs'
-@Component
+import AskLeaveModal from './components/AskLeaveModal.vue'
+@Component({
+  components: {
+    AskLeaveModal
+  }
+})
 export default class AskLeaveManagement extends Vue {
   tableData = [
     {
@@ -40,6 +37,8 @@ export default class AskLeaveManagement extends Vue {
       createTime: dayjs().format('YYYY-MM-DD')
     }
   ]
+
+  isOpenAskLeaveModal = false
 
   searchName = ''
 

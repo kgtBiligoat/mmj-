@@ -7,7 +7,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
-import LoginView from './views/components/LoginView.vue'
+import LoginView from './views/LoginView.vue'
 @Component({
   components: {
     LoginView,

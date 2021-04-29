@@ -3,7 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Index.vue'
 import processManagement from '../views/processManagement/Index.vue'
 import askLeaveManagement from '../views/askLeaveManagement/Index.vue'
-import LoginView from '../views/components/LoginView.vue'
+import LoginView from '../views/LoginView.vue'
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [

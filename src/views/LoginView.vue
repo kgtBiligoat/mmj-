@@ -78,8 +78,7 @@ export default class LoginView extends Vue {
   }
 
   submitForm(v: string) {
-    const formName = v === 'login' ? 'loginForm' : 'registFrom'
-    ;(this.$refs[formName] as any).validate(async (valid: any) => {
+    ;(this.$refs['loginForm'] as any).validate(async (valid: any) => {
       if (valid) {
         v === 'login' ? await this.login() : await this.regist()
       } else {
