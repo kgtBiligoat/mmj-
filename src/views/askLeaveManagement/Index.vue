@@ -3,19 +3,28 @@
     <div class="title">
       <h1>请假记录</h1>
       <div>
-        <el-button type="primary" @click="isOpenAskLeaveModal = true">请假</el-button>
+        <el-button type="primary" @click="isOpenAskLeaveModal = true"
+          >请假</el-button
+        >
       </div>
     </div>
     <el-table :data="tableData" border>
-      <el-table-column fixed prop="taskName" label="请假人">
-      </el-table-column>
+      <el-table-column fixed prop="taskName" label="请假人"> </el-table-column>
       <el-table-column prop="reason" label="请假原因"> </el-table-column>
       <el-table-column prop="startTime" label="开始时间"> </el-table-column>
       <el-table-column prop="endTime" label="结束时间"> </el-table-column>
-      <el-table-column label="请假时间">
-
-      </el-table-column>
+      <el-table-column label="请假时间"> </el-table-column>
     </el-table>
+    <el-pagination
+      style="text-align: right; margin-top: 10px;"
+      @current-change="search"
+      :current-page.sync="currentPage"
+      :page-size="pageSize"
+      :page-sizes="[10, 20, 50, 100]"
+      layout="prev, pager, next, jumper, sizes ,total"
+      :total="totalSize"
+    >
+    </el-pagination>
     <AskLeaveModal :visable.sync="isOpenAskLeaveModal"></AskLeaveModal>
   </div>
 </template>
@@ -27,8 +36,8 @@ import dayjs from 'dayjs'
 import AskLeaveModal from './components/AskLeaveModal.vue'
 @Component({
   components: {
-    AskLeaveModal
-  }
+    AskLeaveModal,
+  },
 })
 export default class AskLeaveManagement extends Vue {
   tableData = [
@@ -36,13 +45,21 @@ export default class AskLeaveManagement extends Vue {
       taskName: 'mmj傻逼',
       taskResource: 'mySql',
       taskStatus: '',
-      createTime: dayjs().format('YYYY-MM-DD')
-    }
+      createTime: dayjs().format('YYYY-MM-DD'),
+    },
   ]
 
   isOpenAskLeaveModal = false
 
+  currentPage = 1
+  pageSize = 20
+  totalSize = 100
+
   searchName = ''
+
+  async search() {}
+
+  test() {}
 
   created() {
     console.log('杜泽正是傻逼', dayjs())

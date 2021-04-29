@@ -24,13 +24,24 @@
       <el-table-column prop="createTime" label="创建时间" > </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
-          <el-button @click="lookOver(scope.row)" type="text" size="small"
+          <el-button @click="open" type="text" size="small"
             >查看</el-button
           >
           <el-button type="text" @click="open" size="small">开启</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      style="text-align: right; margin-top: 10px;"
+      @current-change="search"
+      :current-page.sync="currentPage"
+      :page-size="pageSize"
+      :page-sizes="[10, 20, 50, 100]"
+      layout="prev, pager, next, jumper, sizes ,total"
+      :total="totalSize"
+    >
+    </el-pagination>
+    <LookOverModal :visable.sync="isOpenLookOverModal"/>
   </div>
 </template>
 
@@ -38,7 +49,12 @@
 import Vue from 'vue'
 import { Component, Prop, Watch } from 'vue-property-decorator'
 import dayjs from 'dayjs'
-@Component
+import LookOverModal from './components/LookOverModal.vue'
+@Component({
+  components: {
+    LookOverModal
+  }
+})
 export default class DataMigration extends Vue {
   tableData = [
     {
@@ -49,14 +65,14 @@ export default class DataMigration extends Vue {
     },
   ]
 
+  isOpenLookOverModal = false
   searchName = ''
+  currentPage = 1
+  pageSize = 20
+  totalSize = 100
 
-  async open() {
-
-  }
-
-  async lookOver() {
-    
+  open() {
+    this.isOpenLookOverModal = true
   }
 
   async search() {
