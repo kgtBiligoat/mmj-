@@ -24,3 +24,15 @@ export function logout() {
   return $http.post(url)
   .then((res: any) => res.data)
 }
+
+export function askLeave(parmas: any) {
+  const url = '/leaveFormCreate'
+  return $http.post(url, {
+    userId: parmas.userId,
+    formType: parmas.formType,
+    startTime: parmas.startTime,
+    endTime: parmas.endTime,
+    reason: parmas.reason
+  })
+  .then((res: any) => res.data)
+}

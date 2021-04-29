@@ -9,10 +9,12 @@
     <el-table :data="tableData" border>
       <el-table-column fixed prop="taskName" label="请假人">
       </el-table-column>
-      <el-table-column prop="taskResource" label="请假原因"> </el-table-column>
-      <el-table-column prop="taskResource" label="开始时间"> </el-table-column>
-      <el-table-column prop="taskResource" label="结束时间"> </el-table-column>
-      <el-table-column prop="taskResource" label="请假时间"> </el-table-column>
+      <el-table-column prop="reason" label="请假原因"> </el-table-column>
+      <el-table-column prop="startTime" label="开始时间"> </el-table-column>
+      <el-table-column prop="endTime" label="结束时间"> </el-table-column>
+      <el-table-column label="请假时间">
+
+      </el-table-column>
     </el-table>
     <AskLeaveModal :visable.sync="isOpenAskLeaveModal"></AskLeaveModal>
   </div>

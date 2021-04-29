@@ -8,14 +8,15 @@
       <el-form-item label="申请人">
         {{ username }}
       </el-form-item>
+      <!-- 请假类型 1-事假 2-病假 3-工伤假 4-婚假 5-产假 6-丧假 -->
       <el-form-item label="请假类别">
-        <el-select v-model="form.leaveType" placeholder="请选择请假类别" size="small" style="width: 400px;">
-          <el-option label="事假" value="shanghai"></el-option>
-          <el-option label="病假" value="beijing"></el-option>
-          <el-option label="工伤假" value="beijing"></el-option>
-          <el-option label="婚假" value="beijing"></el-option>
-          <el-option label="产假" value="beijing"></el-option>
-          <el-option label="丧假" value="beijing"></el-option>
+        <el-select v-model="form.formType" placeholder="请选择请假类别" size="small" style="width: 400px;">
+          <el-option label="事假" value="1"></el-option>
+          <el-option label="病假" value="2"></el-option>
+          <el-option label="工伤假" value="3"></el-option>
+          <el-option label="婚假" value="4"></el-option>
+          <el-option label="产假" value="5"></el-option>
+          <el-option label="丧假" value="6"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="请假时长">
@@ -30,7 +31,7 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item label="请假事由">
-        <el-input v-model="form.leaveReason" placeholder="请输入请假事由" size="small" style="width: 400px;"></el-input>
+        <el-input v-model="form.reason" placeholder="请输入请假事由" size="small" style="width: 400px;"></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -42,12 +43,18 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, Watch } from 'vue-property-decorator'
+import dayjs from 'dayjs'
+import * as api from '@/api'
 @Component
 export default class askLeaveModal extends Vue {
   @Prop()
   visable!: boolean
 
-  form = {}
+  form = {
+    formType: '',
+    leaveDateRange: '',
+    reason: ''
+  }
 
   get username() {
     return this.$store.state.username
@@ -61,8 +68,20 @@ export default class askLeaveModal extends Vue {
     this.$emit('update:visable', v)
   }
 
-  submit() {
-    this.localVisable = false
+  async submit() {
+    const res = await api.askLeave({
+      ...this.form,
+      startTime: dayjs(this.form.leaveDateRange[0]).format('YYYY-MM-DD'),
+      endTime: dayjs(this.form.leaveDateRange[1]).format('YYYY-MM-DD'),
+      userId: this.$store.state.id
+    })
+    if(res.status === 10000) {
+      this.localVisable = false
+      this.$message({
+        message: '提交成功',
+        type: 'success',
+      })
+    }
   }
 }
 </script>

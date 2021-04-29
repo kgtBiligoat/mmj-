@@ -50,6 +50,7 @@ export default class LoginView extends Vue {
     if (res.status === 10000) {
       this.$store.commit('LOGIN', {
         username: this.logForm.username,
+        userId: res.data.id
       })
       document.cookie = `isLogin=${this.logForm.username}; `
       this.$message({
@@ -67,6 +68,7 @@ export default class LoginView extends Vue {
     if (res.status === 10000) {
       this.$store.commit('LOGIN', {
         username: this.logForm.username,
+        userId: res.data.id
       })
       document.cookie = `isLogin=${this.logForm.username}; `
       this.$message({
