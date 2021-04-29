@@ -1,7 +1,7 @@
 <template>
   <div class="askLeaveManagement">
     <div class="title">
-      <h1>请假审批</h1>
+      <h1>请假记录</h1>
       <div>
         <el-button type="primary" @click="isOpenAskLeaveModal = true">请假</el-button>
       </div>
