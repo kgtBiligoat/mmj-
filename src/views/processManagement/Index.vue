@@ -18,12 +18,9 @@
       </div>
     </div>
     <el-table :data="tableData" border>
-      <el-table-column fixed prop="taskName" label="任务名称" >
+      <el-table-column fixed prop="taskName" label="流程名称" >
       </el-table-column>
-      <el-table-column prop="taskResource" label="资源类型" > </el-table-column>
-      <el-table-column prop="taskStatus" label="任务状态" >
-        <el-tag lot-scope="scope" type="success">运行中</el-tag>
-      </el-table-column>
+      <el-table-column prop="taskResource" label="实例数" > </el-table-column>
       <el-table-column prop="createTime" label="创建时间" > </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
