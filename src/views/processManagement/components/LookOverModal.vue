@@ -4,7 +4,12 @@
     :visible.sync="localVisable"
     :close-on-click-modal="false"
   >
-    <el-progress :percentage="percentage"></el-progress>
+    <el-progress
+      :percentage="percentage"
+      :text-inside="true"
+      :stroke-width="26"
+      :status="status"
+    ></el-progress>
     <span slot="footer" class="dialog-footer">
       <el-button @click="localVisable = false">中断</el-button>
       <el-button type="primary" @click="percentage = 0">回滚</el-button>
@@ -22,17 +27,22 @@ export default class LookOverModal extends Vue {
   visable!: boolean
 
   timer = 0
+  status = ''
 
   @Watch('visable', { immediate: true })
   startProcess(v: boolean) {
-    if(!v) {
+    if (!v) {
       this.percentage = 0
       clearInterval(this.timer)
+      this.status = ''
     } else {
       this.timer = setInterval(() => {
-        console.log(1)
-        this.percentage ++
-      }, 1000)
+        this.percentage++
+        if (this.percentage >= 100) {
+          clearInterval(this.timer)
+          this.status = 'success'
+        }
+      }, 100)
     }
   }
 
@@ -41,7 +51,7 @@ export default class LookOverModal extends Vue {
   form = {
     formType: '',
     leaveDateRange: '',
-    reason: ''
+    reason: '',
   }
 
   get username() {
@@ -61,9 +71,9 @@ export default class LookOverModal extends Vue {
       ...this.form,
       startTime: dayjs(this.form.leaveDateRange[0]).format('YYYY-MM-DD'),
       endTime: dayjs(this.form.leaveDateRange[1]).format('YYYY-MM-DD'),
-      id: this.$store.state.id
+      id: this.$store.state.id,
     })
-    if(res.status === 10000) {
+    if (res.status === 10000) {
       this.localVisable = false
       this.$message({
         message: '提交成功',
@@ -73,4 +83,5 @@ export default class LookOverModal extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
