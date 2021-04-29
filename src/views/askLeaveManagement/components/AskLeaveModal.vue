@@ -73,7 +73,7 @@ export default class askLeaveModal extends Vue {
       ...this.form,
       startTime: dayjs(this.form.leaveDateRange[0]).format('YYYY-MM-DD'),
       endTime: dayjs(this.form.leaveDateRange[1]).format('YYYY-MM-DD'),
-      userId: this.$store.state.id
+      id: this.$store.state.id
     })
     if(res.status === 10000) {
       this.localVisable = false

@@ -28,7 +28,7 @@ export function logout() {
 export function askLeave(parmas: any) {
   const url = '/leaveFormCreate'
   return $http.post(url, {
-    userId: parmas.userId,
+    id: parmas.id,
     formType: parmas.formType,
     startTime: parmas.startTime,
     endTime: parmas.endTime,

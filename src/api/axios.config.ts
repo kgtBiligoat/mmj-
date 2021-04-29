@@ -57,13 +57,13 @@ instance.interceptors.response.use((res: AxiosResponse) => {
   // 返回401，表示sso凭证已过期，需要退出登录，重新登录
   if (res.status !== 200) {
     if (!conf.noToast) {
-      if(res.data && res.data.message) {
+      if(res.data && res.data.msg) {
         Message({
           type: 'error',
           dangerouslyUseHTMLString: true,
-          message: `${res.data.message}`
+          message: `${res.data.msg}`
         })
-        throw new Error(res.data.message)
+        throw new Error(res.data.msg)
       }
       Message({
         type: 'error',
@@ -81,7 +81,7 @@ instance.interceptors.response.use((res: AxiosResponse) => {
       Message({
         type: 'error',
         dangerouslyUseHTMLString: true,
-        message: `${res.data.message}`
+        message: `${res.data.msg}`
       })
     }
 
