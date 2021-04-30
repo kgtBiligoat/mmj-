@@ -56,14 +56,7 @@ import LookOverModal from './components/LookOverModal.vue'
   }
 })
 export default class DataMigration extends Vue {
-  tableData = [
-    {
-      taskName: 'mmj傻逼',
-      taskResource: 'mySql',
-      taskStatus: '',
-      createTime: dayjs().format('YYYY-MM-DD'),
-    },
-  ]
+  tableData = []
 
   isOpenLookOverModal = false
   searchName = ''

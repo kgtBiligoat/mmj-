@@ -34,20 +34,14 @@ import Vue from 'vue'
 import { Component, Prop, Watch } from 'vue-property-decorator'
 import dayjs from 'dayjs'
 import AskLeaveModal from './components/AskLeaveModal.vue'
+import * as api from '@/api'
 @Component({
   components: {
     AskLeaveModal,
   },
 })
 export default class AskLeaveManagement extends Vue {
-  tableData = [
-    {
-      taskName: 'mmj傻逼',
-      taskResource: 'mySql',
-      taskStatus: '',
-      createTime: dayjs().format('YYYY-MM-DD'),
-    },
-  ]
+  tableData = []
 
   isOpenAskLeaveModal = false
 
@@ -57,11 +51,19 @@ export default class AskLeaveManagement extends Vue {
 
   searchName = ''
 
-  async search() {}
-
-  test() {}
+  async search(v: number) {
+    const res = await api.searchLeaveList({
+      pageNum: v ? v : this.currentPage,
+      pageSize: this.pageSize
+    })
+    if(res.status === 10000) {
+      this.tableData = res.data.list
+      this.totalSize = res.data.total
+    }
+  }
 
   created() {
+    this.search(1)
     console.log('杜泽正是傻逼', dayjs())
   }
 }

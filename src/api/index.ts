@@ -36,3 +36,12 @@ export function askLeave(parmas: any) {
   })
   .then((res: any) => res.data)
 }
+
+export function searchLeaveList(params: any) {
+  const url = '/leaveFormList'
+  return $http.post(url, {
+    pageNum: params.pageNum,
+    pageSize: params.pageSize
+  })
+  .then((res: any) => res.data)
+}
