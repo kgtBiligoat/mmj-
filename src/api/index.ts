@@ -26,7 +26,7 @@ export function logout() {
 }
 
 export function askLeave(parmas: any) {
-  const url = '/leaveFormCreate'
+  const url = '/leave/leaveFormCreate'
   return $http.post(url, {
     id: parmas.id,
     formType: parmas.formType,
@@ -38,7 +38,7 @@ export function askLeave(parmas: any) {
 }
 
 export function searchLeaveList(params: any) {
-  const url = '/leaveFormList'
+  const url = '/leave/leaveFormList'
   return $http.post(url, {
     pageNum: params.pageNum,
     pageSize: params.pageSize

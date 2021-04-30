@@ -43,13 +43,7 @@ module.exports = {
           host: 'localhost:3000'
         }
       },
-      '/leaveFormCreate': {
-        target: 'http://localhost:3000',
-        headers: {
-          host: 'localhost:3000'
-        }
-      },
-      '/leaveFormList': {
+      '/leave/*': {
         target: 'http://localhost:3000',
         headers: {
           host: 'localhost:3000'
