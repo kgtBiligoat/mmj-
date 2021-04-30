@@ -9,7 +9,7 @@
       </div>
     </div>
     <el-table :data="tableData" border>
-      <el-table-column fixed prop="userName" label="请假人"> </el-table-column>
+      <el-table-column fixed prop="username" label="请假人"> </el-table-column>
       <el-table-column prop="reason" label="请假原因"> </el-table-column>
       <el-table-column label="开始时间">
         <span slot-scope="{ row }">{{
@@ -53,7 +53,9 @@ import * as api from '@/api'
   },
 })
 export default class AskLeaveManagement extends Vue {
-  tableData = []
+  tableData = [
+
+  ]
 
   isOpenAskLeaveModal = false
 
