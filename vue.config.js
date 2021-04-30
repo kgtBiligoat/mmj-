@@ -48,6 +48,12 @@ module.exports = {
         headers: {
           host: 'localhost:3000'
         }
+      },
+      '/leaveFormList': {
+        target: 'http://localhost:3000',
+        headers: {
+          host: 'localhost:3000'
+        }
       }
     }
   },
