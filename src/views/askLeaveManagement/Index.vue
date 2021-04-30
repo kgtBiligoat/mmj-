@@ -9,11 +9,23 @@
       </div>
     </div>
     <el-table :data="tableData" border>
-      <el-table-column fixed prop="taskName" label="请假人"> </el-table-column>
+      <el-table-column fixed prop="userName" label="请假人"> </el-table-column>
       <el-table-column prop="reason" label="请假原因"> </el-table-column>
-      <el-table-column prop="startTime" label="开始时间"> </el-table-column>
-      <el-table-column prop="endTime" label="结束时间"> </el-table-column>
-      <el-table-column label="请假时间"> </el-table-column>
+      <el-table-column label="开始时间">
+        <span slot-scope="{ row }">{{
+          dayjs(row.startTime).format('YYYY-MM-DD')
+        }}</span>
+      </el-table-column>
+      <el-table-column label="结束时间">
+        <span slot-scope="{ row }">{{
+          dayjs(row.endTime).format('YYYY-MM-DD')
+        }}</span>
+      </el-table-column>
+      <el-table-column label="请假时长">
+        <span slot-scope="{ row }">
+          {{ DateDifference(row.startTime, row.endTime) }}
+        </span>
+      </el-table-column>
     </el-table>
     <el-pagination
       style="text-align: right; margin-top: 10px;"
@@ -46,20 +58,36 @@ export default class AskLeaveManagement extends Vue {
   isOpenAskLeaveModal = false
 
   currentPage = 1
-  pageSize = 20
+  pageSize = 10
   totalSize = 100
+  dayjs = dayjs
 
   searchName = ''
 
   async search(v: number) {
     const res = await api.searchLeaveList({
       pageNum: v ? v : this.currentPage,
-      pageSize: this.pageSize
+      pageSize: this.pageSize,
     })
-    if(res.status === 10000) {
+    if (res.status === 10000) {
       this.tableData = res.data.list
       this.totalSize = res.data.total
     }
+  }
+
+  DateDifference(faultDate: string, completeTime: string) {
+    var stime = new Date(faultDate).getTime()
+    var etime = new Date(completeTime).getTime()
+    var usedTime = etime - stime //两个时间戳相差的毫秒数
+    var days = Math.floor(usedTime / (24 * 3600 * 1000))
+    //计算出小时数
+    var leave1 = usedTime % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
+    var hours = Math.floor(leave1 / (3600 * 1000))
+    //计算相差分钟数
+    var leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数
+    var minutes = Math.floor(leave2 / (60 * 1000))
+    var time = days + "天"+hours+"时"+minutes+"分";
+    return time
   }
 
   created() {
