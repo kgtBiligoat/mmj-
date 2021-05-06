@@ -52,4 +52,5 @@ export function searchDefinitionList(params: any) {
     pageNum: params.pageNum,
     pageSize: params.pageSize
   })
+  .then((res: any) => res.data)
 }
