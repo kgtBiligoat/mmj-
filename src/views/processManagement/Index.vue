@@ -10,6 +10,7 @@
           placeholder="请输入搜索内容"
           prefix-icon="el-icon-search"
           v-model="searchName"
+          @keyup.enter.native="search"
         >
         </el-input>
       </div>
