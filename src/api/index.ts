@@ -45,3 +45,11 @@ export function searchLeaveList(params: any) {
   })
   .then((res: any) => res.data)
 }
+
+export function searchDefinitionList(params: any) {
+  const url = '/camunda/queryDefinitionList'
+  return $http.post(url, {
+    pageNum: params.pageNum,
+    pageSize: params.pageSize
+  })
+}

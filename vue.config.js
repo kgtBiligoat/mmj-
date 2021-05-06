@@ -48,7 +48,13 @@ module.exports = {
         headers: {
           host: 'localhost:3000'
         }
-      }
+      },
+      '/camunda/*': {
+        target: 'http://localhost:3000',
+        headers: {
+          host: 'localhost:3000'
+        }
+      },
     }
   },
   chainWebpack: config => {

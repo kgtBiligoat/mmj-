@@ -53,9 +53,7 @@ import * as api from '@/api'
   },
 })
 export default class AskLeaveManagement extends Vue {
-  tableData = [
-
-  ]
+  tableData = []
 
   isOpenAskLeaveModal = false
 
