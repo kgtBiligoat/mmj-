@@ -71,6 +71,7 @@ export default class DataMigration extends Vue {
 
   async search(num: number) {
     const res  = await api.searchDefinitionList({
+      queryString: this.searchName,
       pageNum: num ? num : this.currentPage,
       pageSize: this.pageSize
     })

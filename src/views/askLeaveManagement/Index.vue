@@ -92,7 +92,6 @@ export default class AskLeaveManagement extends Vue {
 
   created() {
     this.search(1)
-    console.log('杜泽正是傻逼', dayjs())
   }
 }
 </script>
