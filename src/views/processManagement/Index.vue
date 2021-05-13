@@ -24,10 +24,10 @@
       <el-table-column prop="instanceCount" label="实例数" > </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
-          <el-button @click="open" type="text" size="small"
+          <el-button @click="openInstanceModal(scope.row)" type="text" size="small"
             >查看</el-button
           >
-          <el-button type="text" @click="open" size="small">开启</el-button>
+          <el-button type="text" @click="openLookOver" size="small">开启</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -42,6 +42,7 @@
     >
     </el-pagination>
     <LookOverModal :visable.sync="isOpenLookOverModal"/>
+    <InstanceModal :visable.sync="isOpenInstanceModal" :queryString="currentId"/>
   </div>
 </template>
 
@@ -50,23 +51,32 @@ import Vue from 'vue'
 import { Component, Prop, Watch } from 'vue-property-decorator'
 import dayjs from 'dayjs'
 import LookOverModal from './components/LookOverModal.vue'
+import InstanceModal from './components/InstanceModal.vue'
 import * as api from '@/api'
 @Component({
   components: {
-    LookOverModal
+    LookOverModal,
+    InstanceModal
   }
 })
 export default class DataMigration extends Vue {
   tableData = []
 
+  isOpenInstanceModal = false
   isOpenLookOverModal = false
   searchName = ''
   currentPage = 1
   pageSize = 20
   totalSize = 100
+  currentId = 1
 
-  open() {
+  openLookOver() {
     this.isOpenLookOverModal = true
+  }
+
+  openInstanceModal(row: any) {
+    this.currentId = row.id
+    this.isOpenInstanceModal = true
   }
 
   async search(num?: number) {

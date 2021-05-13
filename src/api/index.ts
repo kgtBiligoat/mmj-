@@ -55,3 +55,13 @@ export function searchDefinitionList(params: any) {
   })
   .then((res: any) => res.data)
 }
+
+export function searchDefinitionInstanceList(params: any) {
+  const url = '/camunda/queryInstance'
+  return $http.post(url, {
+    queryString: params.queryString,
+    pageNum: params.pageNum,
+    pageSize: params.pageSize
+  })
+  .then((res: any) => res.data)
+}
