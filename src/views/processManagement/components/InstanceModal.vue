@@ -32,6 +32,13 @@ export default class InstanceModal extends Vue {
   @Prop()
   queryString!: string
 
+  @Watch('visable', { immediate: true })
+  searchTable(v: boolean) {
+    if(v) {
+      this.search(1)
+    }
+  }
+
   tableData = []
   currentPage = 1
   pageSize = 10
@@ -45,11 +52,11 @@ export default class InstanceModal extends Vue {
     this.$emit('update:visable', v)
   }
 
-  async search() {
+  async search(num: number) {
     const res = await api.searchDefinitionInstanceList({
       queryString: this.queryString,
       pageSize: this.pageSize,
-      pageNum: this.currentPage
+      pageNum: num ? num : this.currentPage
     })
     if(res.status === 10000) {
       this.tableData = res.items
