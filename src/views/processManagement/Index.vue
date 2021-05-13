@@ -10,12 +10,12 @@
           placeholder="请输入搜索内容"
           prefix-icon="el-icon-search"
           v-model="searchName"
-          @keyup.enter.native="search"
+          @keyup.enter.native="(e) => search(1)"
         >
         </el-input>
       </div>
       <div>
-        <el-button type="primary" @click="search">查询</el-button>
+        <el-button type="primary" @click="search(1)">查询</el-button>
       </div>
     </div>
     <el-table :data="tableData" border>
@@ -69,12 +69,13 @@ export default class DataMigration extends Vue {
     this.isOpenLookOverModal = true
   }
 
-  async search(num: number) {
+  async search(num?: number) {
     const res  = await api.searchDefinitionList({
       queryString: this.searchName,
       pageNum: num ? num : this.currentPage,
       pageSize: this.pageSize
     })
+    console.log(res)
     if(res.status === 10000) {
       this.tableData = res.data.list
       this.totalSize = res.data.total
