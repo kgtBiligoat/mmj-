@@ -82,7 +82,7 @@ export function startMigration(params: any) {
 }
 
 export function searchMigratioList(params: any) {
-  const url = '/camunda/migration'
+  const url = 'camunda/migrationRecordList'
   return $http
     .post(url, {
       queryString: '',
