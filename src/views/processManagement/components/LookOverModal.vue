@@ -3,9 +3,8 @@
     title="流程进度"
     :visible.sync="localVisable"
     :close-on-click-modal="false"
-    style="margin-bottom: 20px;"
   >
-    <el-select v-model="value">
+    <el-select v-model="value" style="margin-bottom: 20px;">
       <el-option
         v-for="item in options"
         :key="item.id"
@@ -67,6 +66,7 @@ export default class LookOverModal extends Vue {
 
   async startMigration(sourceProcessId: string, targetProcessId: string) {
     this.percentage = 0
+    console.log(sourceProcessId, targetProcessId)
     const res = await api.startMigration({
       sourceProcessId: sourceProcessId,
       targetProcessId: targetProcessId
