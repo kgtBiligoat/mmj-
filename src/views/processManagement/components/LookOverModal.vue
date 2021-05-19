@@ -3,6 +3,7 @@
     title="流程进度"
     :visible.sync="localVisable"
     :close-on-click-modal="false"
+    style="margin-bottom: 20px;"
   >
     <el-select v-model="value">
       <el-option
@@ -19,8 +20,8 @@
       :status="status"
     ></el-progress>
     <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="startMigration()">回滚</el-button>
-      <el-button @click="startProcess()">开始迁移</el-button>
+      <el-button type="primary" @click="startMigration(value, queryString)">回滚</el-button>
+      <el-button @click="startMigration(queryString, value)">开始迁移</el-button>
     </span>
   </el-dialog>
 </template>
@@ -65,11 +66,13 @@ export default class LookOverModal extends Vue {
   }
 
   async startMigration(sourceProcessId: string, targetProcessId: string) {
+    this.percentage = 0
     const res = await api.startMigration({
       sourceProcessId: sourceProcessId,
       targetProcessId: targetProcessId
     })
     if(res.status === 10000) {
+      this.startProcess()
       this.$message({
         message: '提交成功',
         type: 'success',
@@ -77,14 +80,14 @@ export default class LookOverModal extends Vue {
     }
   }
 
-  startProcess(v: boolean) {
+  startProcess() {
     this.timer = setInterval(() => {
       this.percentage++
-      if (this.percentage >= 100) {
+      if (this.percentage === 100) {
         clearInterval(this.timer)
         this.status = 'success'
       }
-    }, 100)
+    }, 50)
   }
 
   get username() {
