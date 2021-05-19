@@ -48,6 +48,13 @@ export default class LookOverModal extends Vue {
     reason: '',
   }
 
+  @Watch('visable', { immediate: true })
+  fetchOptions(v: boolean) {
+    if(v) {
+      this.fetchOptionList()
+    }
+  }
+
   async fetchOptionList() {
     const res = await api.searchOptionList({
       queryString: this.queryString
