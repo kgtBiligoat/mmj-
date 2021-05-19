@@ -7,9 +7,9 @@
     <el-select v-model="value">
       <el-option
         v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value">
+        :key="item.id"
+        :label="item.id"
+        :value="item.id">
       </el-option>
     </el-select>
     <el-progress
@@ -52,6 +52,9 @@ export default class LookOverModal extends Vue {
     const res = await api.searchOptionList({
       queryString: this.queryString
     })
+    if(res.status === 10000) {
+      this.options = res.data
+    }
   }
 
   async startMigration(sourceProcessId: string, targetProcessId: string) {
