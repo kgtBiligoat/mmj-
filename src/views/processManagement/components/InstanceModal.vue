@@ -59,7 +59,7 @@ export default class InstanceModal extends Vue {
       pageNum: num ? num : this.currentPage
     })
     if(res.status === 10000) {
-      this.tableData = res.list
+      this.tableData = res.data.list
       this.totalSize = res.data.total
     }
   }
