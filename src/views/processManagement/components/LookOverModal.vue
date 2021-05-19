@@ -4,6 +4,14 @@
     :visible.sync="localVisable"
     :close-on-click-modal="false"
   >
+    <el-select v-model="value">
+      <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+      </el-option>
+    </el-select>
     <el-progress
       :percentage="percentage"
       :text-inside="true"
@@ -11,8 +19,8 @@
       :status="status"
     ></el-progress>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="localVisable = false">中断</el-button>
-      <el-button type="primary" @click="percentage = 0">回滚</el-button>
+      <el-button type="primary" @click="startMigration()">回滚</el-button>
+      <el-button @click="startProcess()">开始迁移</el-button>
     </span>
   </el-dialog>
 </template>
@@ -25,33 +33,48 @@ import * as api from '@/api'
 export default class LookOverModal extends Vue {
   @Prop()
   visable!: boolean
+  @Prop()
+  queryString!: string
 
   timer = 0
   status = ''
-
-  @Watch('visable', { immediate: true })
-  startProcess(v: boolean) {
-    if (!v) {
-      this.percentage = 0
-      clearInterval(this.timer)
-      this.status = ''
-    } else {
-      this.timer = setInterval(() => {
-        this.percentage++
-        if (this.percentage >= 100) {
-          clearInterval(this.timer)
-          this.status = 'success'
-        }
-      }, 100)
-    }
-  }
-
   percentage = 0
+  value = ''
+  options = []
 
   form = {
     formType: '',
     leaveDateRange: '',
     reason: '',
+  }
+
+  async fetchOptionList() {
+    const res = await api.searchOptionList({
+      queryString: this.queryString
+    })
+  }
+
+  async startMigration(sourceProcessId: string, targetProcessId: string) {
+    const res = await api.startMigration({
+      sourceProcessId: sourceProcessId,
+      targetProcessId: targetProcessId
+    })
+    if(res.status === 10000) {
+      this.$message({
+        message: '提交成功',
+        type: 'success',
+      })
+    }
+  }
+
+  startProcess(v: boolean) {
+    this.timer = setInterval(() => {
+      this.percentage++
+      if (this.percentage >= 100) {
+        clearInterval(this.timer)
+        this.status = 'success'
+      }
+    }, 100)
   }
 
   get username() {
@@ -63,6 +86,7 @@ export default class LookOverModal extends Vue {
   }
 
   set localVisable(v: boolean) {
+    clearInterval(this.timer)
     this.$emit('update:visable', v)
   }
 

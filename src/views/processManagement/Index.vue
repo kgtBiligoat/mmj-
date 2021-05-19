@@ -24,10 +24,8 @@
       <el-table-column prop="instanceCount" label="实例数" > </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
-          <el-button @click="openInstanceModal(scope.row)" type="text" size="small"
-            >查看</el-button
-          >
-          <el-button type="text" @click="openLookOver" size="small">开启</el-button>
+          <el-button @click="openInstanceModal(scope.row)" type="text" size="small">查看流程实例</el-button>
+          <el-button type="text" @click="openLookOver" size="small">迁移设置</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -41,7 +39,7 @@
       :total="totalSize"
     >
     </el-pagination>
-    <LookOverModal :visable.sync="isOpenLookOverModal"/>
+    <LookOverModal :visable.sync="isOpenLookOverModal" :queryString="currentId"/>
     <InstanceModal :visable.sync="isOpenInstanceModal" :queryString="currentId"/>
   </div>
 </template>

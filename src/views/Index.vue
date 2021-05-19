@@ -39,6 +39,10 @@
           <i class="el-icon-document"></i>
           <span slot="title">请假管理</span>
         </el-menu-item>
+        <el-menu-item index="migration">
+          <i class="el-icon-document"></i>
+          <span slot="title">迁移记录</span>
+        </el-menu-item>
       </el-menu>
       <div class="container">
         <router-view></router-view>
