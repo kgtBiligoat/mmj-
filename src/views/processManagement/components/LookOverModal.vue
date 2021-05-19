@@ -63,6 +63,13 @@ export default class LookOverModal extends Vue {
       this.options = res.data
     }
   }
+  
+  async execMigration(sourceProcessId: string, targetProcessId: string) {
+    const res = await api.execMigration({
+      sourceProcessId: sourceProcessId,
+      targetProcessId: targetProcessId
+    })
+  }
 
   async startMigration(sourceProcessId: string, targetProcessId: string) {
     this.percentage = 0
@@ -72,6 +79,7 @@ export default class LookOverModal extends Vue {
       targetProcessId: targetProcessId
     })
     if(res.status === 10000) {
+      await this.execMigration(sourceProcessId, targetProcessId)
       this.startProcess()
       this.$message({
         message: '提交成功',

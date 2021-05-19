@@ -101,3 +101,14 @@ export function searchOptionList(params: any) {
     })
     .then((res: any) => res.data)
 }
+
+// /camunda/migrationRecord
+export function execMigration(params: any) {
+  const url = '/camunda/migrationRecord'
+  return $http
+    .post(url, {
+      sourceProcessId: params.sourceProcessId,
+      targetProcessId: params.targetProcessId,
+    })
+    .then((res: any) => res.data)
+}
