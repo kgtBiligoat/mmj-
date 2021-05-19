@@ -25,7 +25,7 @@
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button @click="openInstanceModal(scope.row)" type="text" size="small">查看流程实例</el-button>
-          <el-button type="text" @click="openLookOver" size="small">迁移设置</el-button>
+          <el-button type="text" @click="openLookOver(scope.row)" size="small">迁移设置</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -68,7 +68,8 @@ export default class DataMigration extends Vue {
   totalSize = 100
   currentId = 1
 
-  openLookOver() {
+  openLookOver(row: any) {
+    this.currentId = row.id
     this.isOpenLookOverModal = true
   }
 
